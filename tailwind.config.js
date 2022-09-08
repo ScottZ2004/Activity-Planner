@@ -11,8 +11,15 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Depot-new', ...defaultTheme.fontFamily.sans],
             },
+        },
+        colors: {
+          'white': '#F5F5F5',
+          'blue': '#1697B7',
+          'light-blue': '#30C3CD',
+          'orange': '#E8804C',
+          'light-orange': '#E8804C',
         },
     },
 
