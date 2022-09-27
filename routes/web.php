@@ -22,6 +22,7 @@ Route::get('/my-activities', [ActivityController::class, 'my_activities'])->midd
 Route::get('/manage-activities', [ActivityController::class, 'manage_activties'])->middleware(['auth'])->name('manage-activities');
 
 Route::get('/new-activity', [ActivityController::class, 'new_activity'])->middleware(['auth'])->name('new-activity');
+Route::post('/create-activity', [ActivityController::class, 'create_activity'])->middleware(['auth'])->name('create_activity');
 
 Route::get('/manage-account', [ActivityController::class, 'manage_account'])->middleware(['auth'])->name('manage-account');
 

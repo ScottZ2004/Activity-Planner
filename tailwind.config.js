@@ -15,11 +15,12 @@ module.exports = {
             },
         },
         colors: {
-          'white': '#F5F5F5',
-          'blue': '#1697B7',
-          'lightblue': '#30C3CD',
-          'orange': '#E8804C',
-          'lightorange': '#E8804C',
+            'white': '#F5F5F5',
+            'blue': '#1697B7',
+            'lightblue': '#30C3CD',
+            'orange': '#E8804C',
+            'lightorange': '#E8804C',
+            'red': '#FF0000'
         }
     },
 
