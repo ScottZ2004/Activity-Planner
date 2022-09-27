@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ActivityController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,20 +17,12 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/my-activities', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/my-activities', [ActivityController::class, 'my_activities'])->middleware(['auth'])->name('dashboard');
 
-Route::get('/manage-activities', function () {
-    return view('manage-activities');
-})->middleware(['auth'])->name('manage-activities');
+Route::get('/manage-activities', [ActivityController::class, 'manage_activties'])->middleware(['auth'])->name('manage-activities');
 
-Route::get('/new-activity', function () {
-    return view('new-activity');
-})->middleware(['auth'])->name('new-activity');
+Route::get('/new-activity', [ActivityController::class, 'new_activity'])->middleware(['auth'])->name('new-activity');
 
-Route::get('/manage-account', function () {
-    return view('manage-account');
-})->middleware(['auth'])->name('manage-account');
+Route::get('/manage-account', [ActivityController::class, 'manage_account'])->middleware(['auth'])->name('manage-account');
 
 require __DIR__.'/auth.php';
