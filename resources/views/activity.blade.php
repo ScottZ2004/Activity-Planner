@@ -27,7 +27,7 @@
 
             </div>
         </div>
-        <div class="w-3/4 flex">
+        <div class="w-3/4">
             <div>
                 <div>
                     <h2>New availability</h2>
@@ -41,12 +41,67 @@
                     <button>Update</button>
                 </form>
             </div>
-            <div class="h-96 bg-red">
-                <p>hier komt grafiek</p>
+            <div class="h-96 ">
+                <div class="w-3/4">
+                    <canvas id="activity_chart"></canvas>
+                    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+                    <script>
+                        // setup
+                        const data = {
+                            labels: <?php echo json_encode($labels) ?>,
+                            datasets: [{
+                                label: 'Beschikbaarheid',
+                                data: <?php echo json_encode($data) ?>,
+                                backgroundColor: [
+                                    'rgba(255, 26, 104, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(0, 0, 0, 1)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 26, 104, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)',
+                                    'rgba(0, 0, 0, 1)'
+                                ],
+                                barPercentage: 0.2
+                            }]
+                        };
+
+                        // config
+                        const config = {
+                            type: 'bar',
+                            data,
+                            options: {
+                                indexAxis: 'y',
+                                scales: {
+                                    x: {
+
+                                    },
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        };
+
+                        // render init block
+                        const myChart = new Chart(
+                            document.getElementById('activity_chart'),
+                            config
+                        );
+                    </script>
+
+                </div>
+
             </div>
         </div>
     </div>
-
-
-
 </x-app-layout>

@@ -6,6 +6,7 @@ use App\Models\Activities;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Charts\ActvityTime;
 
 class ActivityController extends Controller
 {
@@ -55,7 +56,24 @@ class ActivityController extends Controller
             'user_6' => $activity->participant6_id
 
         );
-        return view('activity', ['activity' => $activity, 'admin_user' => $admin_user, 'user' => $user, 'activity_users' => $activity_user, 'participants'=> $participants]);
+        $user_1 = User::where('id', '=' , $activity->participant1_id)->first();
+        $user_2 = User::where('id', '=' , $activity->participant2_id)->first();
+        $user_3 = User::where('id', '=' , $activity->participant3_id)->first();
+        $user_4 = User::where('id', '=' , $activity->participant4_id)->first();
+        $user_5 = User::where('id', '=' , $activity->participant5_id)->first();
+        $user_6 = User::where('id', '=' , $activity->participant6_id)->first();
+
+        $labels = ['one','two','three','four','five','six','seven',];
+        $data = [
+            [1,2],
+            [3,4],
+            [2,7],
+            [6,9],
+            [2,5],
+            [3,7],
+            [1,24],
+        ];
+        return view('activity', ['activity' => $activity, 'admin_user' => $admin_user, 'user' => $user, 'activity_users' => $activity_user, 'participants'=> $participants, 'labels' => $labels, 'data' => $data]);
     }
 
     public function manage_account(){
