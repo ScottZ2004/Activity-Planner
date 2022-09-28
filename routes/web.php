@@ -14,8 +14,8 @@ use App\Http\Controllers\ActivityController;
 */
 
 Route::get('/', function () {
-    return redirect('login');
-});
+    return redirect()->route('dashboard');
+})->middleware(['auth']);
 
 Route::get('/my-activities', [ActivityController::class, 'my_activities'])->middleware(['auth'])->name('dashboard');
 
@@ -23,6 +23,7 @@ Route::get('/manage-activities', [ActivityController::class, 'manage_activties']
 
 Route::get('/new-activity', [ActivityController::class, 'new_activity'])->middleware(['auth'])->name('new-activity');
 Route::post('/create-activity', [ActivityController::class, 'create_activity'])->middleware(['auth'])->name('create_activity');
+Route::get('/activity/{slug}', [ActivityController::class, 'activity'])->middleware(['auth'])->name('activity');
 
 Route::get('/manage-account', [ActivityController::class, 'manage_account'])->middleware(['auth'])->name('manage-account');
 
