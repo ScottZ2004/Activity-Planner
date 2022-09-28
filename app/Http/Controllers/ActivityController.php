@@ -6,7 +6,6 @@ use App\Models\Activities;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Charts\ActvityTime;
 
 class ActivityController extends Controller
 {
@@ -56,23 +55,49 @@ class ActivityController extends Controller
             'user_6' => $activity->participant6_id
 
         );
-        $user_1 = User::where('id', '=' , $activity->participant1_id)->first();
-        $user_2 = User::where('id', '=' , $activity->participant2_id)->first();
-        $user_3 = User::where('id', '=' , $activity->participant3_id)->first();
-        $user_4 = User::where('id', '=' , $activity->participant4_id)->first();
-        $user_5 = User::where('id', '=' , $activity->participant5_id)->first();
-        $user_6 = User::where('id', '=' , $activity->participant6_id)->first();
+        $participants_id = array(
+            'participant1_id',
+            'participant2_id',
+            'participant3_id',
+            'participant4_id',
+            'participant5_id',
+            'participant6_id',
+        );
 
-        $labels = ['one','two','three','four','five','six','seven',];
-        $data = [
-            [1,2],
-            [3,4],
-            [2,7],
-            [6,9],
-            [2,5],
-            [3,7],
-            [1,24],
-        ];
+        $user_1 = User::where('id', '=', $activity->participant1_id)->first();
+        $user_2 = User::where('id', '=', $activity->participant2_id)->first();
+        $user_3 = User::where('id', '=', $activity->participant3_id)->first();
+        $user_4 = User::where('id', '=', $activity->participant4_id)->first();
+        $user_5 = User::where('id', '=', $activity->participant5_id)->first();
+        $user_6 = User::where('id', '=', $activity->participant6_id)->first();
+        $data = array();
+        $labels = array();
+        if ($user_1 != null){
+            $labels[] = $user_1->name;
+            $data[] = [$user_1->from, $user_1->until];
+        }
+        if ($user_2 != null){
+            $labels[] = $user_2->name;
+            $data[] = [$user_2->from, $user_2->until];
+        }
+        if ($user_3 != null){
+            $labels[] = $user_3->name;
+            $data[] = [$user_3->from, $user_3->until];
+        }
+        if ($user_4 != null){
+            $labels[] = $user_4->name;
+            $data[] = [$user_4->from, $user_4->until];
+        }
+        if ($user_5 != null){
+            $labels[] = $user_5->name;
+            $data[] = [$user_5->from, $user_5->until];
+        }
+        if ($user_6 != null){
+            $labels[] = $user_6->name;
+            $data[] = [$user_6->from, $user_6->until];
+        }
+
+
         return view('activity', ['activity' => $activity, 'admin_user' => $admin_user, 'user' => $user, 'activity_users' => $activity_user, 'participants'=> $participants, 'labels' => $labels, 'data' => $data]);
     }
 
