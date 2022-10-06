@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activities;
 use App\Models\User;
+use App\Models\Availability;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,14 +56,6 @@ class ActivityController extends Controller
             'user_6' => $activity->participant6_id
 
         );
-        $participants_id = array(
-            'participant1_id',
-            'participant2_id',
-            'participant3_id',
-            'participant4_id',
-            'participant5_id',
-            'participant6_id',
-        );
 
         $user_1 = User::where('id', '=', $activity->participant1_id)->first();
         $user_2 = User::where('id', '=', $activity->participant2_id)->first();
@@ -70,31 +63,40 @@ class ActivityController extends Controller
         $user_4 = User::where('id', '=', $activity->participant4_id)->first();
         $user_5 = User::where('id', '=', $activity->participant5_id)->first();
         $user_6 = User::where('id', '=', $activity->participant6_id)->first();
+
+        $user_1_availability = Availability::where('activity_id', '=', $activity->id);
+        $user_2_availability = Availability::where('activity_id', '=', $activity->id);
+        $user_3_availability = Availability::where('activity_id', '=', $activity->id);
+        $user_4_availability = Availability::where('activity_id', '=', $activity->id);
+        $user_5_availability = Availability::where('activity_id', '=', $activity->id);
+        $user_6_availability = Availability::where('activity_id', '=', $activity->id);
+
         $data = array();
         $labels = array();
-        if ($user_1 != null){
+
+        if ($user_1 != null && $user_1_availability->from != null){
             $labels[] = $user_1->name;
-            $data[] = [$user_1->from, $user_1->until];
+            $data[] = [$user_1_availability->from, $user_1_availability->until];
         }
-        if ($user_2 != null){
+        if ($user_2 != null && $user_2_availability->from != null){
             $labels[] = $user_2->name;
-            $data[] = [$user_2->from, $user_2->until];
+            $data[] = [$user_2_availability->from, $user_2_availability->until];
         }
-        if ($user_3 != null){
+        if ($user_3 != null && $user_3_availability->from != null){
             $labels[] = $user_3->name;
-            $data[] = [$user_3->from, $user_3->until];
+            $data[] = [$user_3_availability->from, $user_3_availability->until];
         }
-        if ($user_4 != null){
+        if ($user_4 != null && $user_4_availability->from != null){
             $labels[] = $user_4->name;
-            $data[] = [$user_4->from, $user_4->until];
+            $data[] = [$user_4_availability->from, $user_4_availability->until];
         }
-        if ($user_5 != null){
+        if ($user_5 != null && $user_5_availability->from != null){
             $labels[] = $user_5->name;
-            $data[] = [$user_5->from, $user_5->until];
+            $data[] = [$user_5_availability->from, $user_5_availability->until];
         }
-        if ($user_6 != null){
+        if ($user_6 != null && $user_6_availability->from != null){
             $labels[] = $user_6->name;
-            $data[] = [$user_6->from, $user_6->until];
+            $data[] = [$user_6_availability->from, $user_6_availability->until];
         }
 
 
@@ -105,5 +107,28 @@ class ActivityController extends Controller
         return view('manage-account');
     }
 
+    public function update_availability($slug, Request $request){
+        $data = $request->validate([
+            'from' => 'required|integer|between:1,24|different:until',
+            'until' => 'required|integer|between:1,24|different:from'
+        ]);
+
+        $user_id = Auth::id();
+
+        $availabilities = Availability::all();
+        foreach ($availabilities as $activity){
+            if($activity->user_id == $user_id && $activity->activity_id == $slug){
+                $activity->delete();
+            }
+        }
+
+        $availability = new Availability();
+        $availability->from = $data['from'];
+        $availability->until = $data['until'];
+        $availability->user_id = $user_id;
+        $availability->activity_id = $slug;
+        $availability->save();
+        return redirect()->route('activity', $slug);
+    }
 
 }

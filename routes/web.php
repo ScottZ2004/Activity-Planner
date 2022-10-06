@@ -23,7 +23,9 @@ Route::get('/manage-activities', [ActivityController::class, 'manage_activties']
 
 Route::get('/new-activity', [ActivityController::class, 'new_activity'])->middleware(['auth'])->name('new-activity');
 Route::post('/create-activity', [ActivityController::class, 'create_activity'])->middleware(['auth'])->name('create_activity');
+
 Route::get('/activity/{slug}', [ActivityController::class, 'activity'])->middleware(['auth'])->name('activity');
+Route::post('/availability/{slug}/update', [ActivityController::class, 'update_availability'])->middleware(['auth'])->name('update-availability');
 
 Route::get('/manage-account', [ActivityController::class, 'manage_account'])->middleware(['auth'])->name('manage-account');
 

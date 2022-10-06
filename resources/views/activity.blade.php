@@ -35,12 +35,26 @@
                     <h2 class="text-white text-2xl font-bold">New availability</h2>
                     <h2 class="text-white text-xl">Date: {{$activity->date}}</h2>
                 </div>
-                <form class="bg-blue p-3 flex" action="" method="">
+                <form class="bg-blue p-3 flex" action="{{route("update-availability", $activity->id)}}" method="POST">
+                    @csrf
                     <label class="text-lg m-2 text-white align-bottom" for="">From</label>
-                    <input class="m-2 " type="number">
+                    <div class="flex flex-col">
+                        <input name="from" class="m-2 " type="number">
+                        @error('from')
+                        <p class="pl-3 text-red">{{$message}}</p>
+                        @enderror
+                    </div>
+
                     <label class="text-lg m-2 text-white align-bottom" for="">Until</label>
-                    <input class="m-2 " type="number">
-                    <button class="m-2 inline-flex items-center px-4 py-2 bg-orange rounded-md font-bold text-base text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Update</button>
+                    <div class="flex flex-col">
+                        <input name="until" class="m-2 " type="number">
+                        @error('until')
+                        <p class="pl-3 text-red">{{$message}}</p>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="m-2 inline-flex items-center px-4 py-2 bg-orange rounded-md font-bold text-base text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Update</button>
+
                 </form>
             </div>
             <div class="w-auto h-1/1 m-5">

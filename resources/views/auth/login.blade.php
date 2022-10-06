@@ -46,7 +46,7 @@
                         </a>
                         <br>
                     @endif
-                    <a class="underline text-sm text-white" href="{{route('register')}}">{{__('Already have an account?')}}</a>
+                    <a class="underline text-sm text-white" href="{{route('register')}}">{{__("Don't have an account?")}}</a>
                 </div>
                 <div class="justify-end">
                     <x-primary-button class="ml-3">
