@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Auth;
 class ActivityController extends Controller
 {
     public function my_activities(){
-        return view('dashboard');
+        $user = Auth::user();
+        $activities = Activities::all();
+        return view('dashboard', ['user' => $user, 'activities' => $activities]);
     }
 
     public function manage_activties(){
