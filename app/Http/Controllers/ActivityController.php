@@ -64,15 +64,41 @@ class ActivityController extends Controller
         $user_5 = User::where('id', '=', $activity->participant5_id)->first();
         $user_6 = User::where('id', '=', $activity->participant6_id)->first();
 
-        $user_1_availability = Availability::where('activity_id', '=', $activity->id);
-        $user_2_availability = Availability::where('activity_id', '=', $activity->id);
-        $user_3_availability = Availability::where('activity_id', '=', $activity->id);
-        $user_4_availability = Availability::where('activity_id', '=', $activity->id);
-        $user_5_availability = Availability::where('activity_id', '=', $activity->id);
-        $user_6_availability = Availability::where('activity_id', '=', $activity->id);
+        $user_1_availability = null;
+        $user_2_availability = null;
+        $user_3_availability = null;
+        $user_4_availability = null;
+        $user_5_availability = null;
+        $user_6_availability = null;
+
+        $admin_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $admin_user->id]])->first();
+        if($user_1 != null){
+            $user_1_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $user_1->id]])->first();
+        }
+        if($user_2 != null){
+            $user_2_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $user_2->id]])->first();
+        }
+        if($user_3 != null){
+            $user_3_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $user_3->id]])->first();
+        }
+        if($user_4 != null){
+            $user_4_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $user_4->id]])->first();
+        }
+        if($user_5 != null){
+            $user_5_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $user_5->id]])->first();
+        }
+        if($user_6 != null){
+            $user_6_availability = Availability::where([['activity_id', '=', $activity->id], ['user_id', '=', $user_6->id]])->first();
+        }
 
         $data = array();
         $labels = array();
+
+        if ($admin_availability != null){
+            $labels[] = $admin_user->name;
+            $data[] = [$admin_availability->from, $admin_availability->until];
+        }
+
 
         if ($user_1 != null && $user_1_availability->from != null){
             $labels[] = $user_1->name;
