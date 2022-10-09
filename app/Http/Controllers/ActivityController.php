@@ -102,27 +102,27 @@ class ActivityController extends Controller
         }
 
 
-        if ($user_1 != null && $user_1_availability->from != null){
+        if ($user_1 != null && $user_1_availability != null){
             $labels[] = $user_1->name;
             $data[] = [$user_1_availability->from, $user_1_availability->until];
         }
-        if ($user_2 != null && $user_2_availability->from != null){
+        if ($user_2 != null && $user_2_availability != null){
             $labels[] = $user_2->name;
             $data[] = [$user_2_availability->from, $user_2_availability->until];
         }
-        if ($user_3 != null && $user_3_availability->from != null){
+        if ($user_3 != null && $user_3_availability != null){
             $labels[] = $user_3->name;
             $data[] = [$user_3_availability->from, $user_3_availability->until];
         }
-        if ($user_4 != null && $user_4_availability->from != null){
+        if ($user_4 != null && $user_4_availability != null){
             $labels[] = $user_4->name;
             $data[] = [$user_4_availability->from, $user_4_availability->until];
         }
-        if ($user_5 != null && $user_5_availability->from != null){
+        if ($user_5 != null && $user_5_availability != null){
             $labels[] = $user_5->name;
             $data[] = [$user_5_availability->from, $user_5_availability->until];
         }
-        if ($user_6 != null && $user_6_availability->from != null){
+        if ($user_6 != null && $user_6_availability != null){
             $labels[] = $user_6->name;
             $data[] = [$user_6_availability->from, $user_6_availability->until];
         }
@@ -159,4 +159,53 @@ class ActivityController extends Controller
         return redirect()->route('activity', $slug);
     }
 
+    public function add_participants($slug){
+        $user = Auth::user();
+        $users = User::all();
+
+        return view('add-participant', ['user' => $user, 'users' => $users, 'slug' => $slug]);
+    }
+
+    public function update_participants($slug, $participant_id){
+        $user = Auth::user();
+        $activity = Activities::where('id', '=', $slug)->first();
+        if ($activity->admin_id != $user->id){
+            return redirect(route('dashboard'));
+        }
+        else{
+            if($activity->participant1_id == null || $activity->participant1_id == $participant_id){
+                $activity->participant1_id = $participant_id;
+                $activity->save();
+                return redirect(route('activity', $slug));
+            }
+            else if($activity->participant2_id == null || $activity->participant2_id == $participant_id){
+                $activity->participant2_id = $participant_id;
+                $activity->save();
+                return redirect(route('activity', $slug));
+            }
+            else if($activity->participant3_id == null || $activity->participant3_id == $participant_id){
+                $activity->participant3_id = $participant_id;
+                $activity->save();
+                return redirect(route('activity', $slug));
+            }
+            else if($activity->participant4_id == null || $activity->participant4_id == $participant_id){
+                $activity->participant4_id = $participant_id;
+                $activity->save();
+                return redirect(route('activity', $slug));
+            }
+            else if($activity->participant5_id == null || $activity->participant5_id == $participant_id){
+                $activity->participant5_id = $participant_id;
+                $activity->save();
+                return redirect(route('activity', $slug));
+            }
+            else if($activity->participant6_id == null || $activity->participant5_id == $participant_id){
+                $activity->participant6_id = $participant_id;
+                $activity->save();
+                return redirect(route('activity', $slug));
+            }
+            else{
+                return redirect(route('add-Participant', $slug));
+            }
+        }
+    }
 }

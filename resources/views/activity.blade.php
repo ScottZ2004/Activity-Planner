@@ -22,7 +22,7 @@
                 </div>
                 <div class="flex justify-end py-4">
                     @if($user == $admin_user)
-                        <button class="inline-flex items-center px-4 py-2 bg-orange rounded-md font-bold text-base text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Add Participant</button>
+                        <button onclick="window.location='{{route('add-Participant', $activity->id)}}'" class="inline-flex items-center px-4 py-2 bg-orange rounded-md font-bold text-base text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Add Participant</button>
                     @else
                         <button class="inline-flex items-center px-4 py-2 bg-orange rounded-md font-bold text-base text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none disabled:opacity-25 transition ease-in-out duration-150">Leave Activity</button>
                     @endif
