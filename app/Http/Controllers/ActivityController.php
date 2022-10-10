@@ -169,36 +169,38 @@ class ActivityController extends Controller
     public function update_participants($slug, $participant_id){
         $user = Auth::user();
         $activity = Activities::where('id', '=', $slug)->first();
+
         if ($activity->admin_id != $user->id){
             return redirect(route('dashboard'));
         }
         else{
-            if($activity->participant1_id == null || $activity->participant1_id == $participant_id){
+            if(($activity->participant1_id != $participant_id && $activity->participant2_id != $participant_id && $activity->participant3_id != $participant_id && $activity->participant4_id != $participant_id && $activity->participant5_id != $participant_id && $activity->participant6_id != $participant_id) && ($activity->participant1_id == $participant_id || $activity->participant1_id == null)){
                 $activity->participant1_id = $participant_id;
                 $activity->save();
                 return redirect(route('activity', $slug));
             }
-            else if($activity->participant2_id == null || $activity->participant2_id == $participant_id){
+            else if(($activity->participant1_id != $participant_id && $activity->participant2_id != $participant_id && $activity->participant3_id != $participant_id && $activity->participant4_id != $participant_id && $activity->participant5_id != $participant_id && $activity->participant6_id != $participant_id) && ($activity->participant2_id == $participant_id || $activity->participant2_id == null)){
                 $activity->participant2_id = $participant_id;
                 $activity->save();
                 return redirect(route('activity', $slug));
             }
-            else if($activity->participant3_id == null || $activity->participant3_id == $participant_id){
-                $activity->participant3_id = $participant_id;
-                $activity->save();
-                return redirect(route('activity', $slug));
+            else if(($activity->participant1_id != $participant_id && $activity->participant2_id != $participant_id && $activity->participant3_id != $participant_id && $activity->participant4_id != $participant_id && $activity->participant5_id != $participant_id && $activity->participant6_id != $participant_id) && ($activity->participant3_id == $participant_id || $activity->participant3_id == null)){
+            $activity->participant3_id = $participant_id;
+            $activity->save();
+            return redirect(route('activity', $slug));
             }
-            else if($activity->participant4_id == null || $activity->participant4_id == $participant_id){
+
+            else if(($activity->participant1_id != $participant_id && $activity->participant2_id != $participant_id && $activity->participant3_id != $participant_id && $activity->participant4_id != $participant_id && $activity->participant5_id != $participant_id && $activity->participant6_id != $participant_id) && ($activity->participant4_id == $participant_id || $activity->participant4_id == null)){
                 $activity->participant4_id = $participant_id;
                 $activity->save();
                 return redirect(route('activity', $slug));
             }
-            else if($activity->participant5_id == null || $activity->participant5_id == $participant_id){
+            else if(($activity->participant1_id != $participant_id && $activity->participant2_id != $participant_id && $activity->participant3_id != $participant_id && $activity->participant4_id != $participant_id && $activity->participant5_id != $participant_id && $activity->participant6_id != $participant_id) && ($activity->participant5_id == $participant_id || $activity->participant5_id == null)){
                 $activity->participant5_id = $participant_id;
                 $activity->save();
                 return redirect(route('activity', $slug));
             }
-            else if($activity->participant6_id == null || $activity->participant5_id == $participant_id){
+            else if(($activity->participant1_id != $participant_id && $activity->participant2_id != $participant_id && $activity->participant3_id != $participant_id && $activity->participant4_id != $participant_id && $activity->participant5_id != $participant_id && $activity->participant6_id != $participant_id) && ($activity->participant6_id == $participant_id || $activity->participant6_id == null)){
                 $activity->participant6_id = $participant_id;
                 $activity->save();
                 return redirect(route('activity', $slug));
@@ -208,4 +210,5 @@ class ActivityController extends Controller
             }
         }
     }
+
 }
