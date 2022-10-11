@@ -18,7 +18,7 @@
                 @enderror
             </label>
             <label class="mt-4">
-                <h3>Name Activity</h3>
+                <h3>Description Activity</h3>
                 <textarea name="description" class="border-blue border-2" cols="30" rows="10"></textarea>
             </label>
             <label class="flex justify-end">

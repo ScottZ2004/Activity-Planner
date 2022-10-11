@@ -17,7 +17,9 @@ class ActivityController extends Controller
     }
 
     public function manage_activties(){
-        return view('manage-activities');
+        $user = Auth::user();
+        $activities = Activities::all();
+        return view('manage-activities', ['user' => $user, 'activities' => $activities]);
     }
 
     public function new_activity(){
