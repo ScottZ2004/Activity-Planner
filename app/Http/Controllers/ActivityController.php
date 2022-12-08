@@ -58,7 +58,6 @@ class ActivityController extends Controller
             'user_4' => $activity->participant4_id,
             'user_5' => $activity->participant5_id,
             'user_6' => $activity->participant6_id
-
         );
 
         $user_1 = User::where('id', '=', $activity->participant1_id)->first();
@@ -128,7 +127,6 @@ class ActivityController extends Controller
             $labels[] = $user_6->name;
             $data[] = [$user_6_availability->from, $user_6_availability->until];
         }
-
 
         return view('activity', ['activity' => $activity, 'admin_user' => $admin_user, 'user' => $user, 'activity_users' => $activity_user, 'participants'=> $participants, 'labels' => $labels, 'data' => $data]);
     }
